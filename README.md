@@ -8,8 +8,8 @@ This automation framework is built using Java, Maven, RestAssured, and Cucumber.
 3. Install dependencies by running: `mvn clean install`.
 
 ## Running Tests
-- To run tests on the default environment, use: `mvn test`.
-- To run tests on a specific environment, use: `mvn test -Denv=ENVIRONMENT`.
+- To run tests on the default environment, use: `mvn verify`.
+- To run tests on a specific environment, use: `mvn verify -Ptest -Denv=test`.
 
 ## Test Report
 After running the tests, you can find the HTML test report at `build/test-results/timeline`.
