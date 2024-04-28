@@ -1,10 +1,8 @@
-@BitCoinAPI
-Feature: Get Bitcoin Rate
-  As a user
-  I want to make a GET call to Coinbase API
-  To get the current price for Bitcoin in GBP
 
-  Scenario: Get Bitcoin Rate in GBP
-    Given I make a GET request to "https://api.coindesk.com/v1/bpi/currentprice.json"
-    Then the response status code should be 200
-    And the Bitcoin rate in GBP should be printed
+Feature: Validate current price for Bitcoin in GBP via Coinbase API
+  @TestAPI
+  Scenario: Get current price for Bitcoin in GBP
+    Given I set the base URI for Coinbase API
+    When I send a GET request to the endpoint to get current Bitcoin price
+    And I extract the Bitcoin price in GBP to print
+    And I print the bitcoin rate in GBP

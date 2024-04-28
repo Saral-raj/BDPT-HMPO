@@ -1,29 +1,37 @@
 package ho.qat.stepDefinitions;
 
+import ho.qat.utility.ConfigReader;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
 import io.restassured.response.Response;
 import org.junit.Test;
-import static io.restassured.RestAssured.*;
-
+import static io.restassured.RestAssured.given;
 
 public class GetBitcoinRateSteps {
 
     private Response response;
+    private String baseUrl = ConfigReader.getProperty("baseUrl");
+    private String currencyCode = ConfigReader.getProperty("currencyCode");
+    private double bitcoinRateInGBP;
 
-    @Given("I make a GET request to {string}")
-    public void i_make_a_get_request_to(String url) {
-        response = given().get(url);
+    @Given("I set the base URI for Coinbase API")
+    public void i_set_the_base_uri_for_coinbase_api() {
+        response = given().get(baseUrl);
     }
 
-    @Then("the response status code should be {int}")
-    public void the_response_status_code_should_be(Integer statusCode) {
-        response.then().statusCode(statusCode);
+    @When("I send a GET request to the endpoint to get current Bitcoin price")
+    public void i_send_a_get_request_to_the_endpoint_to_get_current_bitcoin_price() {
+        response.then().statusCode(200);
     }
 
-    @Then("the Bitcoin rate in GBP should be printed")
-    public void the_bitcoin_rate_in_gbp_should_be_printed() {
-        String bitcoinRateGBP = response.jsonPath().getString("bpi.GBP.rate");
-        System.out.println("Bitcoin rate in GBP: " + bitcoinRateGBP);
+    @Then("I extract the Bitcoin price in GBP to print")
+    public void i_extract_the_bitcoin_price_in_gbp_to_print() {
+        bitcoinRateInGBP = response.jsonPath().getDouble("bpi." + currencyCode + ".rate_float");
+    }
+
+    @Then("I print the bitcoin rate in GBP")
+    public void printBitcoinRateInGBP() {
+        System.out.println("Current Bitcoin rate in GBP: " + bitcoinRateInGBP);
     }
 }

@@ -15,5 +15,5 @@ This automation framework is built using Java, Maven, RestAssured, and Cucumber.
 After running the tests, you can find the HTML test report at `build/test-results/timeline`.
 
 ## Environment Configuration
-Environment configurations can be found in the `src/test/resources/config` directory.
+Environment configurations can be found in the `config` directory.
 
